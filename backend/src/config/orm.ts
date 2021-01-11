@@ -5,8 +5,8 @@ const options: TypeOrmModuleOptions = {
   type: 'sqlite',
   database: 'data/mural_mensagens.db',
   logging: true,
-  entities: [path.resolve(__dirname, '..', 'db', 'entities', '*.ts')],
-  migrations: [path.resolve(__dirname, '..', 'db', 'migrations', '*.ts')],
-}
+  entities: [path.resolve(__dirname, '..', 'db', 'entities', '*')],
+  migrations: [path.resolve(__dirname, '..', 'db', 'migrations', '*')],
+};
 
 module.exports = options;
