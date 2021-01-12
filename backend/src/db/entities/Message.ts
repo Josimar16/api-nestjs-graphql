@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
@@ -13,7 +13,7 @@ import User from './User';
 @ObjectType()
 @Entity({ name: 'messages' })
 export default class Message {
-  @Field()
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -21,9 +21,9 @@ export default class Message {
   @Column()
   user_id: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.messageConnection, { primary: true })
   @JoinColumn({ name: 'user_id' })
-  user_join: User;
+  userConnection: Promise<User>;
 
   @Field(() => User)
   user: User;

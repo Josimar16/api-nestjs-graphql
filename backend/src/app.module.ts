@@ -6,9 +6,10 @@ import { AppService } from './app.service';
 
 import * as ormOptions from './config/orm';
 import RepoModule from './repo.module';
+import MessageResolver from './resolvers/message.resolver';
 import UserResolver from './resolvers/user.resolver';
 
-const gqlImports = [UserResolver];
+const gqlImports = [UserResolver, MessageResolver];
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ const gqlImports = [UserResolver];
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
       playground: true,
+      installSubscriptionHandlers: true,
     }),
   ],
   controllers: [AppController],

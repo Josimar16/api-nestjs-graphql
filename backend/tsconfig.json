@@ -6,9 +6,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2017",
+    "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
     "baseUrl": "./",
     "incremental": true
   }

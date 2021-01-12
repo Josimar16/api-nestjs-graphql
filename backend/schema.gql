@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Message {
-  id: String!
+  id: ID!
   user_id: String!
   user: User!
   title: String!
@@ -18,22 +18,42 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type User {
-  id: String!
+  id: ID!
   name: String!
   email: String!
-  messages: Message!
+  messages: [Message!]!
 }
 
 type Query {
-  users: [User!]!
-  user(id: Float!): User
+  getUsers: [User!]!
+  getUser(id: String!): User
+  getMessages: [Message!]!
+  getMessagesFromUser(user_id: String!): Message
+  getMessage(id: String!): Message
 }
 
 type Mutation {
-  createUser(data: UserInput!): User!
+  createOrAuthenticatedUser(data: UserInput!): User!
+  createMessage(data: MessageInput!): Message!
+  deleteMessage(data: DeleteMessageInput!): Boolean
 }
 
 input UserInput {
   name: String!
   email: String!
+}
+
+input MessageInput {
+  title: String!
+  content: String!
+  user_id: String!
+}
+
+input DeleteMessageInput {
+  id: String!
+  user_id: String!
+}
+
+type Subscription {
+  messageAdded: Message!
 }
