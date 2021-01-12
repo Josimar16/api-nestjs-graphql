@@ -12,7 +12,7 @@ import Message from './Message';
 
 @ObjectType()
 @Entity({ name: 'users' })
-export default class Users {
+export default class User {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string;
