@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ProjectsModule } from './modules/projects/projects.module';
 
 import * as ormOptions from './config/orm';
 import RepoModule from './repo.module';
@@ -21,6 +22,7 @@ const gqlImports = [UserResolver, MessageResolver];
       playground: true,
       installSubscriptionHandlers: true,
     }),
+    ProjectsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
