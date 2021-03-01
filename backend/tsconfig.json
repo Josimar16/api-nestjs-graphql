@@ -11,7 +11,19 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "baseUrl": "./",
-    "incremental": true
+    "baseUrl": "./src",
+    "incremental": true,
+    "rootDir": "./src",
+    "paths": {
+      "@modules/*": [
+        "modules/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@shared/*": [
+        "shared/*"
+      ]
+    }
   }
 }

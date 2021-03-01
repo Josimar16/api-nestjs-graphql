@@ -1,30 +1,25 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ProjectsModule } from './modules/projects/projects.module';
 
-import * as ormOptions from './config/orm';
-import RepoModule from './repo.module';
-import MessageResolver from './resolvers/message.resolver';
-import UserResolver from './resolvers/user.resolver';
-
-const gqlImports = [UserResolver, MessageResolver];
+import * as ormOptions from '@shared/infra/typeorm';
 
 @Module({
   imports: [
+    // Inicializando arquivo de configuração do DB
     TypeOrmModule.forRoot(ormOptions),
-    RepoModule,
-    ...gqlImports,
+    // Inicializando GraphQL, arquivo dos schemas e subscriptions
     GraphQLModule.forRoot({
+      useGlobalPrefix: true,
       autoSchemaFile: 'schema.gql',
       playground: true,
+      debug: true,
+      tracing: true,
       installSubscriptionHandlers: true,
     }),
+    // Inicializando todos os módulos
     ProjectsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

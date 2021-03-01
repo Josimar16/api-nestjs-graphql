@@ -2,13 +2,21 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Message {
-  id: ID!
-  user_id: String!
-  user: User!
-  title: String!
-  content: String!
+"""Entidade projeto"""
+type Project {
+  """Identificação do projeto"""
+  project_id: ID!
+
+  """Nome do projeto"""
+  name: String!
+
+  """Descrição do projeto"""
+  description: String!
+
+  """Data da criação do projeto"""
   created_at: DateTime!
+
+  """Data da ultima atualização do projeto"""
   updated_at: DateTime!
 }
 
@@ -17,43 +25,29 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type User {
-  id: ID!
-  name: String!
-  email: String!
-  messages: [Message!]!
-}
-
 type Query {
-  getUsers: [User!]!
-  getUser(id: String!): User
-  getMessages: [Message!]!
-  getMessagesFromUser(user_id: String!): Message
-  getMessage(id: String!): Message
+  """Retorna uma Boolean"""
+  findProject: Boolean!
 }
 
 type Mutation {
-  createOrAuthenticatedUser(data: UserInput!): User!
-  createMessage(data: MessageInput!): Message!
-  deleteMessage(data: DeleteMessageInput!): Boolean
+  """Mutation para criar um projeto"""
+  createProject(
+    """Recebe um argumento 'data' do tipo ICreateProjectDTO"""
+    data: ICreateProjectDTO!
+  ): Project!
 }
 
-input UserInput {
+"""Interface que representa o payload de criação do projeto"""
+input ICreateProjectDTO {
+  """Nome do projeto"""
   name: String!
-  email: String!
-}
 
-input MessageInput {
-  title: String!
-  content: String!
-  user_id: String!
-}
-
-input DeleteMessageInput {
-  id: String!
-  user_id: String!
+  """Descrição do projeto"""
+  description: String!
 }
 
 type Subscription {
-  messageAdded: Message!
+  """Subscription para retornar novos projetos criados"""
+  projectAdded: Project!
 }
